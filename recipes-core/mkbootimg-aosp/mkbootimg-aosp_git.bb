@@ -11,6 +11,7 @@ PV = "git"
 BBCLASSEXTEND = "native"
 
 do_install() {
-    install -d ${D}${bindir}
+    install -d ${D}${bindir}/gki
     install -m 0755 ${S}/mkbootimg.py ${D}${bindir}
+    install -m 0755 ${S}/gki/certify_bootimg.py ${S}/gki/generate_gki_certificate.py ${D}${bindir}/gki
 }
