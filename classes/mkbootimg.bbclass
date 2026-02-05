@@ -8,7 +8,7 @@ MKBOOTIMG_INIT_BOOT_PRESENT ?= "false"
 KERNEL_OUTPUT ?= "${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE}"
 DTB_OUTPUT ?= "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 
-do_deploy[depends] += "initramfs-android-image:do_image_complete mkbootimg-aosp-native:do_populate_sysroot"
+do_deploy[depends] += "initramfs-android-image:do_image_complete mkbootimg-tools-native:do_populate_sysroot"
 
 do_deploy:append() {
     # This function takes one argument, the prefix of the image to deploy (e.g. vendor_)
