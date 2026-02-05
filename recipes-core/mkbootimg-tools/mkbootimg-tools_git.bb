@@ -3,10 +3,10 @@ HOMEPAGE = "https://github.com/xiaolu/mkbootimg_tools & https://android.googleso
 LICENSE = "Apache-2.0"
 SRC_URI = "git://github.com/xiaolu/mkbootimg_tools.git;protocol=https;branch=master;name=old;destsuffix=git/old \
            git://android.googlesource.com/platform/system/tools/mkbootimg.git;protocol=https;branch=main;name=aosp;destsuffix=git/aosp"
-LIC_FILES_CHKSUM:old = "file://mkboot;beginline=1;endline=14;md5=7b23e8b2786c0da7fb7ff74d45637d54"
-LIC_FILES_CHKSUM:aosp = "file://mkbootimg.py;beginline=3;endline=15;md5=81fd84b0a4fa565c3c651a81d026addc"
-SRCREV:old = "df5b4ab37854e72e124d8108cbfb5a1b88ee3c63"
-SRCREV:aosp = "d2bb0af5ba6d3198a3e99529c97eda1be0b5a093"
+LIC_FILES_CHKSUM_old = "file://mkboot;beginline=1;endline=14;md5=7b23e8b2786c0da7fb7ff74d45637d54"
+LIC_FILES_CHKSUM_aosp = "file://mkbootimg.py;beginline=3;endline=15;md5=81fd84b0a4fa565c3c651a81d026addc"
+SRCREV_old = "df5b4ab37854e72e124d8108cbfb5a1b88ee3c63"
+SRCREV_aosp = "d2bb0af5ba6d3198a3e99529c97eda1be0b5a093"
 S = "${WORKDIR}/git"
 PV = "git"
 
