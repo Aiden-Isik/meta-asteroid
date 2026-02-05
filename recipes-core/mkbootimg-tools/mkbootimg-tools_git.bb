@@ -7,6 +7,7 @@ LIC_FILES_CHKSUM_old = "file://mkboot;beginline=1;endline=14;md5=7b23e8b2786c0da
 LIC_FILES_CHKSUM_aosp = "file://mkbootimg.py;beginline=3;endline=15;md5=81fd84b0a4fa565c3c651a81d026addc"
 SRCREV_old = "df5b4ab37854e72e124d8108cbfb5a1b88ee3c63"
 SRCREV_aosp = "d2bb0af5ba6d3198a3e99529c97eda1be0b5a093"
+SRCREV_FORMAT = "old_aosp"
 S = "${WORKDIR}/git"
 PV = "git"
 
