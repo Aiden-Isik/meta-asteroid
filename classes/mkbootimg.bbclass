@@ -26,7 +26,7 @@ do_deploy:append() {
         install -m 0644 ${B}/${1}boot.img ${D}/${KERNEL_IMAGEDEST}
     }
 
-    if [ ${MKBOOTIMG_HEADER_VERSION} -eq 0 || ${MKBOOTIMG_HEADER_VERSION} -eq 1 ]; then
+    if [ ${MKBOOTIMG_HEADER_VERSION} -eq 0 ] || [ ${MKBOOTIMG_HEADER_VERSION} -eq 1 ]; then
         # Kernel and initramfs to boot.img
         mkbootimg.py -o ${B}/boot.img \
                   --kernel ${KERNEL_OUTPUT} \
@@ -43,7 +43,7 @@ do_deploy:append() {
                   --header_version 2 \
                   ${MKBOOTIMG_ARGS}
 
-    elif [ ${MKBOOTIMG_HEADER_VERSION} -eq 3 || ${MKBOOTIMG_HEADER_VERSION} -eq 4 ]; then
+    elif [ ${MKBOOTIMG_HEADER_VERSION} -eq 3 ] || [ ${MKBOOTIMG_HEADER_VERSION} -eq 4 ]; then
         # Kernel to boot.img, initramfs and dtb to vendor_boot.img
         mkbootimg.py -o ${B}/boot.img \
                   --vendor_boot ${B}/vendor_boot.img \
