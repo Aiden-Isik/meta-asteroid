@@ -6,6 +6,10 @@ MKBOOTIMG_ARGS ?= ""
 MKBOOTIMG_HEADER_VERSION ?= "0"
 MKBOOTIMG_INIT_BOOT_PRESENT ?= "false"
 KERNEL_OUTPUT ?= "${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE}"
+
+# NOTE: This DTB path almost certainly needs to be overridden.
+# The device trees compiled in the Linux build system are missing the Android-specific
+# header and need to be run through the mkdtimg script from libufdt.
 DTB_OUTPUT ?= "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 
 do_deploy[depends] += "initramfs-android-image:do_image_complete mkbootimg-tools-native:do_populate_sysroot"
