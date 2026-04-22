@@ -12,7 +12,7 @@ DEPENDS = "initramfs-android-image virtual/kernel"
 PACKAGE_ARCH = "${TARGET_ARCH}"
 
 # TARGET_ARCH on 64-bit ARM is 'aarch64', but the kernel source directory is 'arm64'
-KERNEL_OUTPUT_DIR = "${@d.getVar('STAGING_KERNEL_DIR') + '/arch/' + 'arm64' if d.getVar('TARGET_ARCH') == 'aarch64' else d.getVar('TARGET_ARCH') + '/boot'}"
+#KERNEL_OUTPUT_DIR = "${@d.getVar('STAGING_KERNEL_DIR') + '/arch/' + 'arm64' if d.getVar('TARGET_ARCH') == 'aarch64' else d.getVar('TARGET_ARCH') + '/boot'}"
 KERNEL_IMAGEDEST = "boot"
 DTB_OUTPUT = "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 
