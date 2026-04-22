@@ -8,7 +8,7 @@ SRCREV = "1bd1f6c06ac8d54b4ed40e3927381e83d86bce98"
 PR = "r0"
 PV = "+git${SRCPV}"
 S = "${WORKDIR}/git"
-DEPENDS:${PN} = "initramfs-android-image virtual/kernel"
+DEPENDS = "initramfs-android-image virtual/kernel"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 KERNEL_OUTPUT_DIR = "${STAGING_KERNEL_DIR}/arch/${MACHINE_ARCH}/boot"
