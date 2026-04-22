@@ -8,7 +8,7 @@ SRCREV = "1bd1f6c06ac8d54b4ed40e3927381e83d86bce98"
 PR = "r0"
 PV = "+git${SRCPV}"
 S = "${WORKDIR}/git"
-DEPENDS = "initramfs-android-image virtual/kernel"
+DEPENDS = "initramfs-android-image virtual/kernel libgcc"
 PACKAGE_ARCH = "${TARGET_ARCH}"
 
 # TARGET_ARCH on 64-bit ARM is 'aarch64', but the kernel source directory is 'arm64'
@@ -36,7 +36,7 @@ do_configure() {
 do_compile() {
     # Clear LDFLAGS due to them containing GCC args but being passed to LD
     echo "LDFLAGS: ${LDFLAGS}"
-    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" LD="${TARGET_PREFIX}gcc"
+    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" LD=""
 }
 
 inherit mkbootimg
