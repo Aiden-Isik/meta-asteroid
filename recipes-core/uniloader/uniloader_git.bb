@@ -24,6 +24,8 @@ do_integrate_blobs[depends] = "initramfs-android-image:do_image_complete mkbooti
 
 do_integrate_blobs() {
     echo "KERNEL_OUTPUT_DIR: ${KERNEL_OUTPUT_DIR}"
+    echo "RECIPE_SYSROOT: ${RECIPE_SYSROOT}"
+    echo "DEPLOY_DIR_IMAGE: ${DEPLOY_DIR_IMAGE}"
     cp -v ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
     cp -v ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
     cp -v ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
