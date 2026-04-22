@@ -36,7 +36,7 @@ do_configure() {
 do_compile() {
     # Clear LDFLAGS due to them containing GCC args but being passed to LD
     echo "LDFLAGS: ${LDFLAGS}"
-    oe_runmake V=1 ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" CC="${TARGET_PREFIX}gcc ${CFLAGS}" LDFLAGS=""
+    oe_runmake V=1 ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" LDFLAGS="" LIBGCC="/asteroid/build/tmp/work/aarch64-oe-linux/uniloader/+git/recipe-sysroot/usr/lib/aarch64-oe-linux/14.3.0/libgcc.a"
 }
 
 inherit mkbootimg
