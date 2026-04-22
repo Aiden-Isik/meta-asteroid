@@ -11,14 +11,15 @@ S = "${WORKDIR}/git"
 DEPENDS = "initramfs-android-image virtual/kernel"
 PACKAGE_ARCH = "${TARGET_ARCH}"
 
-KERNEL_OUTPUT_DIR = "${STAGING_KERNEL_DIR}/arch/${TARGET_ARCH}/boot"
+# TARGET_ARCH on 64-bit ARM is 'aarch64', but the kernel source directory is 'arm64'
+KERNEL_OUTPUT_DIR = "${@d.getVar('STAGING_KERNEL_DIR') + '/arch/' + 'arm64' if d.getVar('TARGET_ARCH') == 'aarch64' else d.getVar('TARGET_ARCH') + '/boot'}"
 KERNEL_IMAGEDEST = "boot"
 DTB_OUTPUT = "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 
 # uniLoader is taking the place of the kernel here
 KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 
-addtask do_integrate_blobs after do_unpack
+addtask integrate_blobs after do_unpack
 
 do_integrate_blobs() {
     cp ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
@@ -27,28 +28,11 @@ do_integrate_blobs() {
 }
 
 do_configure() {
-    cp ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
-    cp ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
-    cp ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
-    # uniLoader uses "aarch64" as the 64-bit ARM identifier, we use "arm64"
-    # Switch it around if we're on 64-bit ARM
-    if [ "${TARGET_ARCH}" = "arm64" ]; then
-        UNILOADER_ARCH="aarch64"
-    else
-        UNILOADER_ARCH="${TARGET_ARCH}"
-    fi
-
-    oe_runmake ${PARALLEL_MAKE} ARCH="${UNILOADER_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" ${MACHINE}_defconfig
+    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" ${MACHINE}_defconfig
 }
 
 do_compile() {
-    if [ "${TARGET_ARCH}" = "arm64" ]; then
-        UNILOADER_ARCH="aarch64"
-    else
-        UNILOADER_ARCH="${TARGET_ARCH}"
-    fi
-
-    oe_runmake ${PARALLEL_MAKE} ARCH="${UNILOADER_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}"
+    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}"
 }
 
 inherit mkbootimg
