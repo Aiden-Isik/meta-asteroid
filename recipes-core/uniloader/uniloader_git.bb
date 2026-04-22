@@ -9,9 +9,9 @@ PR = "r0"
 PV = "+git${SRCPV}"
 S = "${WORKDIR}/git"
 DEPENDS = "initramfs-android-image virtual/kernel"
-PACKAGE_ARCH = "${MACHINE_ARCH}"
+PACKAGE_ARCH = "${TARGET_ARCH}"
 
-KERNEL_OUTPUT_DIR = "${STAGING_KERNEL_DIR}/arch/${MACHINE_ARCH}/boot"
+KERNEL_OUTPUT_DIR = "${STAGING_KERNEL_DIR}/arch/${TARGET_ARCH}/boot"
 KERNEL_IMAGEDEST = "boot"
 DTB_OUTPUT = "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 
@@ -29,20 +29,20 @@ do_integrate_blobs() {
 do_configure() {
     # uniLoader uses "aarch64" as the 64-bit ARM identifier, we use "arm64"
     # Switch it around if we're on 64-bit ARM
-    if [ "${MACHINE_ARCH}" = "arm64" ]; then
+    if [ "${TARGET_ARCH}" = "arm64" ]; then
         UNILOADER_ARCH="aarch64"
     else
-        UNILOADER_ARCH="${MACHINE_ARCH}"
+        UNILOADER_ARCH="${TARGET_ARCH}"
     fi
 
     oe_runmake ${PARALLEL_MAKE} ARCH="${UNILOADER_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" ${MACHINE}_defconfig
 }
 
 do_compile() {
-    if [ "${MACHINE_ARCH}" = "arm64" ]; then
+    if [ "${TARGET_ARCH}" = "arm64" ]; then
         UNILOADER_ARCH="aarch64"
     else
-        UNILOADER_ARCH="${MACHINE_ARCH}"
+        UNILOADER_ARCH="${TARGET_ARCH}"
     fi
 
     oe_runmake ${PARALLEL_MAKE} ARCH="${UNILOADER_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}"
