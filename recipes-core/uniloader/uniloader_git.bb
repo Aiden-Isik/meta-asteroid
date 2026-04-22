@@ -19,10 +19,13 @@ DTB_OUTPUT = "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 # uniLoader is taking the place of the kernel here
 KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 
+inherit logging
+
 addtask integrate_blobs after do_unpack
 
 do_integrate_blobs() {
     cp ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
+    bbfatal "test"
     cp ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
     cp ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
 }
