@@ -36,7 +36,7 @@ do_configure() {
 do_compile() {
     # Clear LDFLAGS due to them containing GCC args but being passed to LD
     echo "LDFLAGS: ${LDFLAGS}"
-    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" KBUILD_CFLAGS="${CFLAGS}" LDFLAGS=""
+    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" CC="${TARGET_PREFIX}gcc ${CFLAGS}" LDFLAGS=""
 }
 
 inherit mkbootimg
