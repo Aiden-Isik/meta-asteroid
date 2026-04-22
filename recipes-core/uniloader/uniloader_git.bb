@@ -9,7 +9,7 @@ PR = "r0"
 PV = "+git${SRCPV}"
 S = "${WORKDIR}/git"
 DEPENDS = "initramfs-android-image virtual/kernel libgcc"
-PACKAGE_ARCH = "${TARGET_ARCH}"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # TARGET_ARCH on 64-bit ARM is 'aarch64', but the kernel source directory is 'arm64'
 KERNEL_OUTPUT_DIR = "${@d.getVar('STAGING_KERNEL_DIR') + '/arch/' + 'arm64/boot' if d.getVar('TARGET_ARCH') == 'aarch64' else d.getVar('TARGET_ARCH') + '/boot'}"
