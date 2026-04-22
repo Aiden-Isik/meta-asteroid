@@ -27,6 +27,9 @@ do_integrate_blobs() {
 }
 
 do_configure() {
+    cp ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
+    cp ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
+    cp ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
     # uniLoader uses "aarch64" as the 64-bit ARM identifier, we use "arm64"
     # Switch it around if we're on 64-bit ARM
     if [ "${TARGET_ARCH}" = "arm64" ]; then
