@@ -19,8 +19,6 @@ DTB_OUTPUT = "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 # uniLoader is taking the place of the kernel here
 KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 
-inherit logging
-
 addtask do_integrate_blobs before do_configure
 
 do_integrate_blobs() {
