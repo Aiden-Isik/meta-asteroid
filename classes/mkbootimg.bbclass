@@ -7,12 +7,12 @@ MKBOOTIMG_VENDOR_ARGS ?= ""
 MKBOOTIMG_HEADER_VERSION ?= "0"
 MKBOOTIMG_VENDOR_BOOT ?= "true"
 MKBOOTIMG_INIT_BOOT ?= "false"
-KERNEL_OUTPUT ?= "${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE}"
+KERNEL_IMAGE ?= "${KERNEL_IMAGE_DIR}/${KERNEL_IMAGETYPE}"
 
-# NOTE: This DTB path almost certainly needs to be overridden.
+# NOTE: This DTB path should be overridden.
 # The device trees compiled in the Linux build system are missing the Android-specific
 # header and need to be run through the mkdtimg script from libufdt.
-DTB_OUTPUT ?= "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
+DTB_OUTPUT ?= "${KERNEL_IMAGE_DIR}/dts/${KERNEL_DEVICETREE}"
 
 do_deploy[depends] += "initramfs-android-image:do_image_complete mkbootimg-tools-native:do_populate_sysroot"
 
@@ -35,7 +35,7 @@ do_deploy:append() {
     if [ ${MKBOOTIMG_HEADER_VERSION} -eq 0 ] || [ ${MKBOOTIMG_HEADER_VERSION} -eq 1 ]; then
         # Kernel and initramfs to boot.img
         mkbootimg.py -o ${B}/boot.img \
-                  --kernel ${KERNEL_OUTPUT} \
+                  --kernel ${KERNEL_IMAGE} \
                   --ramdisk ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz \
                   --header-version ${MKBOOTIMG_HEADER_VERSION} \
                   ${MKBOOTIMG_ARGS}
@@ -43,7 +43,7 @@ do_deploy:append() {
     elif [ ${MKBOOTIMG_HEADER_VERSION} -eq 2 ]; then
         # Kernel, initramfs, and dtb to boot.img
         mkbootimg.py -o ${B}/boot.img \
-                  --kernel ${KERNEL_OUTPUT} \
+                  --kernel ${KERNEL_IMAGE} \
                   --ramdisk ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz \
                   --dtb ${DTB_OUTPUT} \
                   --header_version 2 \
@@ -52,7 +52,7 @@ do_deploy:append() {
     elif [ ${MKBOOTIMG_HEADER_VERSION} -eq 3 ] || [ ${MKBOOTIMG_HEADER_VERSION} -eq 4 ]; then
         # Kernel to boot.img, initramfs and dtb to vendor_boot.img
         mkbootimg.py -o ${B}/boot.img \
-                  --kernel ${KERNEL_OUTPUT} \
+                  --kernel ${KERNEL_IMAGE} \
                   --header_version ${MKBOOTIMG_HEADER_VERSION} \
                   ${MKBOOTIMG_ARGS}
 
@@ -87,6 +87,6 @@ do_deploy:append() {
     deploy_bootimg
 }
 
-FILES:${KERNEL_PACKAGE_NAME}-image += "/${KERNEL_IMAGEDEST}/boot.img"
-FILES:${KERNEL_PACKAGE_NAME}-image += "${@'/' + d.getVar('KERNEL_IMAGEDEST') + '/vendor_boot.img' if d.getVar('MKBOOTIMG_VENDOR_BOOT') == 'true' else ''}"
-FILES:${KERNEL_PACKAGE_NAME}-image += "${@'/' + d.getVar('KERNEL_IMAGEDEST') + '/init_boot.img' if d.getVar('MKBOOTIMG_INIT_BOOT') == 'true' else ''}"
+FILES:${PN}-image += "/${KERNEL_IMAGEDEST}/boot.img"
+FILES:${PN}-image += "${@'/' + d.getVar('KERNEL_IMAGEDEST') + '/vendor_boot.img' if d.getVar('MKBOOTIMG_VENDOR_BOOT') == 'true' else ''}"
+FILES:${PN}-image += "${@'/' + d.getVar('KERNEL_IMAGEDEST') + '/init_boot.img' if d.getVar('MKBOOTIMG_INIT_BOOT') == 'true' else ''}"
