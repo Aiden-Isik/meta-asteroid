@@ -22,6 +22,7 @@ KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 addtask do_integrate_blobs before do_configure
 
 do_integrate_blobs() {
+    echo "KERNEL_OUTPUT_DIR: ${KERNEL_OUTPUT_DIR}"
     cp -v ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
     cp -v ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
     cp -v ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
