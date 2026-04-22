@@ -38,8 +38,8 @@ do_compile() {
     # The Makefile doesn't seem to be able to find libgcc on its own in this environment,
     # so we tell it where it is with LIBGCC.
     # We also clear LDFLAGS due to them containing GCC args but being passed to LD.
-    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}"
-    LDFLAGS="" LIBGCC="/asteroid/build/tmp/work/aarch64-oe-linux/uniloader/+git/recipe-sysroot/usr/lib/aarch64-oe-linux/14.3.0/libgcc.a"
+    oe_runmake ${PARALLEL_MAKE} ARCH="${TARGET_ARCH}" CROSS_COMPILE="${TARGET_PREFIX}" LDFLAGS="" \
+              LIBGCC="${RECIPE_SYSROOT}/usr/lib/${TARGET_SYS}/$(${TARGET_PREFIX}gcc -dumpversion)/libgcc.a"
 }
 
 inherit mkbootimg
