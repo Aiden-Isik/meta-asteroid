@@ -20,7 +20,7 @@ DTB_OUTPUT = "${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE}"
 KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 
 addtask do_integrate_blobs before do_configure
-do_integrate_blobs[depends] = "initramfs-android-image:do_image_complete mkbootimg-tools-native:do_populate_sysroot"
+do_integrate_blobs[depends] = "initramfs-android-image:do_image_complete virtual/kernel:do_deploy"
 
 do_integrate_blobs() {
     echo "KERNEL_OUTPUT_DIR: ${KERNEL_OUTPUT_DIR}"
