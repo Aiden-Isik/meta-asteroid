@@ -11,23 +11,18 @@ S = "${WORKDIR}/git"
 DEPENDS = "initramfs-android-image virtual/kernel"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-KERNEL_IMAGEDEST = "boot"
-DTB_OUTPUT = "${@d.getVar('DEPLOY_DIR_IMAGE') + '/' + os.path.basename(d.getVar('KERNEL_DEVICETREE'))}"
-
 # uniLoader is taking the place of the kernel here
 KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
+KERNEL_IMAGEDEST = "boot"
+DTB_OUTPUT = "${@d.getVar('DEPLOY_DIR_IMAGE') + '/' + os.path.basename(d.getVar('KERNEL_DEVICETREE'))}"
 
 addtask do_integrate_blobs before do_configure
 do_integrate_blobs[depends] = "initramfs-android-image:do_image_complete virtual/kernel:do_deploy"
 
 do_integrate_blobs() {
-    echo "KERNEL_OUTPUT_DIR: ${KERNEL_OUTPUT_DIR}"
-    echo "RECIPE_SYSROOT: ${RECIPE_SYSROOT}"
-    echo "DEPLOY_DIR_IMAGE: ${DEPLOY_DIR_IMAGE}"
-    echo "DTB_OUTPUT: ${DTB_OUTPUT}"
-    cp -v ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE} ${S}/blob/Image
-    cp -v ${DTB_OUTPUT} ${S}/blob/dtb
-    cp -v ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
+    cp ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE} ${S}/blob/Image
+    cp ${DTB_OUTPUT} ${S}/blob/dtb
+    cp ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
 }
 
 do_configure() {
