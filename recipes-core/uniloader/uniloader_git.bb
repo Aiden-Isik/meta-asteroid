@@ -21,13 +21,12 @@ KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 
 inherit logging
 
-addtask integrate_blobs after do_unpack
+addtask do_integrate_blobs before do_configure
 
 do_integrate_blobs() {
-    cp ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
-    bbfatal "test"
-    cp ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
-    cp ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
+    cp -v ${KERNEL_OUTPUT_DIR}/${KERNEL_IMAGETYPE} ${S}/blob/Image
+    cp -v ${KERNEL_OUTPUT_DIR}/dts/${KERNEL_DEVICETREE} ${S}/blob/dtb
+    cp -v ${DEPLOY_DIR_IMAGE}/initramfs-android-image-${MACHINE}.cpio.gz ${S}/blob/ramdisk
 }
 
 do_configure() {
