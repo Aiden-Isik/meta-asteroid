@@ -39,4 +39,9 @@ do_compile() {
               LIBGCC="${RECIPE_SYSROOT}/usr/lib/${TARGET_SYS}/$(${TARGET_PREFIX}gcc -dumpversion)/libgcc.a"
 }
 
+do_deploy() {
+    # Stub. Just here so the mkbootimg stuff works
+    return 0
+}
+
 inherit mkbootimg
