@@ -16,6 +16,8 @@ KERNEL_IMAGE = "${B}/${UNILOADER_IMAGETYPE}"
 KERNEL_IMAGEDEST = "boot"
 DTB_OUTPUT = "${@d.getVar('DEPLOY_DIR_IMAGE') + '/' + os.path.basename(d.getVar('KERNEL_DEVICETREE'))}"
 
+inherit deploy
+
 addtask do_integrate_blobs before do_configure
 do_integrate_blobs[depends] = "initramfs-android-image:do_image_complete virtual/kernel:do_deploy"
 
